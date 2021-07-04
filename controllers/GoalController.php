@@ -14,16 +14,27 @@ use yii\filters\VerbFilter;
  */
 class GoalController extends Controller
 {
-    public $events = ["50 FREE" , "100 FREE" , "150 FREE"
-    , "200 FREE", "500 FREE" , "1000 FREE" , "1650 FREE",
-    "100 FLY" , "200 FLY" , "100 BACK" , "200 BACK", 
-    "100 BREAST" , "200 BREAST"];
+   
     /**
      * {@inheritdoc}
      */
     public function behaviors()
     {
         return [
+            'access' => [
+                'class' => \yii\filters\AccessControl::class,
+                
+                'rules' => [
+                   
+                    // allow authenticated users
+                    [
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                    // everything else is denied
+                ],
+            ],
+        
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -106,10 +117,10 @@ class GoalController extends Controller
             $goal->save();
             return $this->redirect(['view', 'id' => $goal->id]);
         }
-        $new_events = array_diff($this->events, $existing_events);
+        $new_events = array_diff($goal->events, $existing_events);
         $events = array_combine($new_events, $new_events);
         return $this->render('create', [
-            'model' => $goal,
+            'goal' => $goal,
             'events' => $events
         ]);
     }
@@ -123,14 +134,14 @@ class GoalController extends Controller
      */
     public function actionUpdate($id)
     {
-        $model = $this->findModel($id);
+        $goal = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($goal->load(Yii::$app->request->post()) && $goal->save()) {
+            return $this->redirect(['view', 'id' => $goal->id]);
         }
 
         return $this->render('update', [
-            'model' => $model,
+            'goal' => $goal,
         ]);
     }
 

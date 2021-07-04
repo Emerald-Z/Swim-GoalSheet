@@ -15,6 +15,11 @@ use Yii;
  */
 class Goal extends \yii\db\ActiveRecord
 {
+
+    public $events = ["50 FREE" , "100 FREE" , "150 FREE"
+    , "200 FREE", "500 FREE" , "1000 FREE" , "1650 FREE",
+    "100 FLY" , "200 FLY" , "100 BACK" , "200 BACK", 
+    "100 BREAST" , "200 BREAST"];
     /**
      * {@inheritdoc}
      */
