@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use Yii;
 use app\models\Goal;
+use app\models\User;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -50,11 +51,30 @@ class GoalController extends Controller
      */
     public function actionIndex()
     {
+        $query = Goal::find()->andWhere(["user_id" => Yii::$app->user->id]);
+
         $dataProvider = new ActiveDataProvider([
-            'query' => Goal::find(),
+            'query' => $query
         ]);
 
         return $this->render('index', [
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
+    /**
+     * Lists all Split models.
+     * @return mixed
+     */
+    public function actionSplit()
+    {
+        $query = Goal::find()->joinWith('split')->with('split')->andWhere(["user_id" => Yii::$app->user->id]);
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query
+         ]);
+
+        return $this->render('split', [
             'dataProvider' => $dataProvider,
         ]);
     }

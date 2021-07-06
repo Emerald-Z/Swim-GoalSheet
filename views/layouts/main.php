@@ -42,7 +42,7 @@ AppAsset::register($this);
     } else {
         $items = [
             ['label' => 'Goal', 'url' => ['/goal']],
-            ['label' => 'Splits & Percents', 'url' => ['/site/goal']],
+            ['label' => 'Splits & Percents', 'url' => ['/goal/split']],
             ['label' => 'Contact', 'url' => ['/site/contact']],
             '<li>'
                 . Html::beginForm(['/site/logout'], 'post')

@@ -57,4 +57,8 @@ class Goal extends \yii\db\ActiveRecord
     {
         return Yii::$app->db->createCommand('select event from goal where user_id = :id', [':id' => $id])->queryColumn();
     }
+
+    public function getSplit(){
+        return $this->hasOne(Split::class, ['event_name'=>'event']);
+    }
 }
