@@ -31,14 +31,36 @@ $( document ).ready(function(){
 
 
        if (["50 FREE", "1650 FREE", "1000 FREE"].includes(event)){
-           console.log('here');
             $('#column_5').hide(); 
        } else {
             $('#column_5').show();  
        }
-        
 
+    })
 
+    $('#PercentSelect').bind('change', function(e){
+        let percent = $(this).val();
+        if(percent == "85%"){
+            $('.Splits85').show();
+            $('.SplitsTable').hide();
+            $('.Splits90').hide();
+            $('.Splits95').hide();
+        } else if(percent == "90%"){
+            $('.Splits85').hide();
+            $('.SplitsTable').hide();
+            $('.Splits90').show();
+            $('.Splits95').hide();
+        } else if(percent == "95%"){
+            $('.Splits85').hide();
+            $('.SplitsTable').hide();
+            $('.Splits90').hide();
+            $('.Splits95').show();
+        } else if(percent == "Percentage"){
+            $('.Splits85').hide();
+            $('.SplitsTable').show();
+            $('.Splits90').hide();
+            $('.Splits95').hide();
+        }
 
     })
 });

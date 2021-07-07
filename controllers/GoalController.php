@@ -68,14 +68,10 @@ class GoalController extends Controller
      */
     public function actionSplit()
     {
-        $query = Goal::find()->joinWith('split')->with('split')->andWhere(["user_id" => Yii::$app->user->id]);
-
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query
-         ]);
+        $result = Goal::find()->joinWith('split')->with('split')->andWhere(["user_id" => Yii::$app->user->id])->all();
 
         return $this->render('split', [
-            'dataProvider' => $dataProvider,
+            'result' => $result,
         ]);
     }
 

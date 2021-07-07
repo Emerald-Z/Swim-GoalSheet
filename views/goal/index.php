@@ -23,7 +23,12 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         'columns' => [
            
-            'user_id',
+            [
+                'label'=>'Name',
+                'value'=>function($data){
+                    return $data->user->first_name;
+                }
+            ],
             'event',
             'goal',
             'step_name_1',

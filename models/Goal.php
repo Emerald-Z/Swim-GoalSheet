@@ -61,4 +61,8 @@ class Goal extends \yii\db\ActiveRecord
     public function getSplit(){
         return $this->hasOne(Split::class, ['event_name'=>'event']);
     }
+
+    public function getUser(){
+        return $this->hasOne(User::class, ['id'=>'user_id']);
+    }
 }
