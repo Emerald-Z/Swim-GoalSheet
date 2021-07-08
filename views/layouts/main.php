@@ -28,7 +28,9 @@ AppAsset::register($this);
 <div class="wrap">
     <?php
     NavBar::begin([
-        'brandLabel' => Yii::$app->name,
+        'brandLabel' => 'Swim GoalSheet',
+        //Yii::$app->name
+
         'brandUrl' => Yii::$app->homeUrl,
         'innerContainerOptions' => ['class' => 'container-fluid'],
                 'options' => [
@@ -40,19 +42,36 @@ AppAsset::register($this);
     if (Yii::$app->user->isGuest) {
         $items [] = ['label' => 'Login', 'url' => ['/site/login']];
     } else {
-        $items = [
-            ['label' => 'Goal', 'url' => ['/goal']],
-            ['label' => 'Splits & Percents', 'url' => ['/goal/split']],
-            ['label' => 'Contact', 'url' => ['/site/contact']],
-            '<li>'
-                . Html::beginForm(['/site/logout'], 'post')
-                . Html::submitButton(
-                    'Logout (' . Yii::$app->user->identity->email . ')',
-                    ['class' => 'btn btn-link logout']
-                )
-                . Html::endForm()
-                . '</li>'
-        ];
+        if(Yii::$app->user->identity->role == 'swimmer'){
+            $items = [
+                ['label' => 'Goal', 'url' => ['/goal']],
+                ['label' => 'Splits & Percents', 'url' => ['s/goal/split']],
+                ['label' => 'Contact', 'url' => ['/site/contact']],
+                '<li>'
+                    . Html::beginForm(['/site/logout'], 'post')
+                    . Html::submitButton(
+                        'Logout (' . Yii::$app->user->identity->email . ')',
+                        ['class' => 'btn btn-link logout']
+                    )
+                    . Html::endForm()
+                    . '</li>'
+            ];
+        }
+        else{
+            $items = [
+                ['label' => 'Swimmers', 'url' => ['/swimmer']],
+                ['label' => 'Team Goals', 'url' => ['/goal/teamgoals']],
+                ['label' => 'Contact', 'url' => ['/site/contact']],
+                '<li>'
+                    . Html::beginForm(['/site/logout'], 'post')
+                    . Html::submitButton(
+                        'Logout (' . Yii::$app->user->identity->email . ')',
+                        ['class' => 'btn btn-link logout']
+                    )
+                    . Html::endForm()
+                    . '</li>'
+            ];
+        }
     }
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav ml-auto nav'],
@@ -72,7 +91,7 @@ AppAsset::register($this);
 
 <footer class="footer">
     <div class="container">
-        <p class="pull-left">&copy; My Company <?= date('Y') ?></p>
+        <p class="pull-left">&copy; Swim GoalSheet <?= date('Y') ?></p>
 
         <p class="pull-right"><?= Yii::powered() ?></p>
     </div>

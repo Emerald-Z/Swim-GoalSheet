@@ -62,6 +62,23 @@ class GoalController extends Controller
         ]);
     }
 
+        /**
+     * Lists all Team Goal models.
+     * @return mixed
+     */
+    public function actionTeamgoals()
+    {
+        $query = Goal::find();
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query
+        ]);
+
+        return $this->render('teamgoals', [
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
     /**
      * Lists all Split models.
      * @return mixed
