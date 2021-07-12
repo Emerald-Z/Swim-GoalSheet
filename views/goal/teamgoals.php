@@ -3,6 +3,8 @@
 use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
+use yii\widgets\ActiveForm;
+
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
@@ -13,6 +15,15 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <h1><?= Html::encode($this->title) ?></h1>
 
+    <div class="search-form">
+        <?php $form = ActiveForm::begin(); ?>
+            <div class="row">
+                <input type = 'text' name = 'name' value='<?=$name?>'>
+                <input type='submit' >
+            </div>
+        <?php ActiveForm::end(); ?>
+    </div>
+
     <?php Pjax::begin(); ?>
 
     <?= GridView::widget([
@@ -20,9 +31,22 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
            
             [
-                'label'=>'Name',
+                'label'=>'First Name',
+                'attribute' => 'user_name',
                 'value'=>function($data){
                     return $data->user->first_name;
+                }
+            ],
+            [
+                'label'=>'Last Name',
+                'value'=>function($data){
+                    return $data->user->last_name;
+                }
+            ],
+            [
+                'label'=>'Group',
+                'value'=>function($data){
+                    return $data->user->group->group_name;
                 }
             ],
             'event',

@@ -74,4 +74,9 @@ class User extends ActiveRecord implements \yii\web\IdentityInterface
     {
         return $this->password === $password;
     }
+
+    public function getGroup(){
+        return $this->hasOne(Group::class, ['id'=>'group_id']);
+    }
+
 }

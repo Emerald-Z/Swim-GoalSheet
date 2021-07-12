@@ -4,7 +4,7 @@ namespace app\controllers;
 
 use Yii;
 use app\models\Goal;
-use app\models\User;
+use app\models\Group;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -68,14 +68,34 @@ class GoalController extends Controller
      */
     public function actionTeamgoals()
     {
-        $query = Goal::find();
+        
+         if(Yii::$app->request->post()){
+            $name=Yii::$app->request->post('name');
+            $query = Goal::find()->joinWith(['user'])->andWhere(['=', 'coach_id', Yii::$app->user->id])->andWhere(['like', 'user.first_name', $name]);
+        } else{
+            $query = Goal::find()->joinWith(['user'])->andWhere('coach_id'== Yii::$app->user->id);
+        }
 
         $dataProvider = new ActiveDataProvider([
-            'query' => $query
+            'query' => $query,
+            'pagination' => [
+                'pageSize' => 10,
+            ],
+            'sort' => [
+                'attributes' => [
+                    'goal',
+                    'user_name' => [
+                        'asc' => ['user.first_name' => SORT_ASC],
+                        'desc' => ['user.first_name' => SORT_DESC]
+                    ]
+                ]
+                
+            ]
         ]);
 
         return $this->render('teamgoals', [
             'dataProvider' => $dataProvider,
+            'name' => $name?? '',
         ]);
     }
 

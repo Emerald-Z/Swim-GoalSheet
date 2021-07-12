@@ -3,17 +3,19 @@
 namespace app\controllers;
 
 use Yii;
-use app\models\Swimmer;
+use app\models\Group;
 use app\models\Goal;
+use app\models\User;
+use app\models\Swimmer;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * UserController implements the CRUD actions for Swimmer model.
+ * GroupController implements the CRUD actions for Group model.
  */
-class SwimmerController extends Controller
+class GroupController extends Controller
 {
     /**
      * {@inheritdoc}
@@ -31,91 +33,84 @@ class SwimmerController extends Controller
     }
 
     /**
-     * Lists all Swimmer models.
+     * Lists all Group models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $query = Swimmer::find()->joinWith('group')->with('group')->andWhere(["role" => 'swimmer']);
+        $query = Group::find()->andWhere(["coach_id" => Yii::$app->user->id]);
 
         $dataProvider = new ActiveDataProvider([
-            'query' => $query,
-            'sort' => [
-                'attributes' => [
-                    'first_name',
-                    'last_name',
-                    'group' => [
-                        'asc' => ['group.group_name' => SORT_ASC],
-                        'desc' => ['group.group_name' => SORT_DESC]
-                    ]
-                ]
-                
-            ]
+            'query' => $query
         ]);
 
         return $this->render('index', [
             'dataProvider' => $dataProvider,
         ]);
+    }
+
+         /**
+     * Lists all Group Goals models.
+     * @return mixed
+     */
+    public function actionGoals_and_splits($id)
+    {
+        $query = Goal::find()->joinWith('user')->andWhere('group_id' == $id);
+        $result = Goal::find()->joinWith('split')->with('split')->all();
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+            'sort' => [
+                'attributes' => [
+                    'first_name' => [
+                        'asc' => ['user.first_name' => SORT_ASC],
+                        'desc' => ['user.first_name' => SORT_DESC]
+                    ],
+                    'last_name',
+                    'event',
+                ]
+                
+            ]
+        ]);
+
+        return $this->render('goals_and_splits', [
+            'dataProvider' => $dataProvider,
+            'result' => $result,
+        ]);
 
     }
 
     /**
-     * Displays a single Swimmer model.
+     * Displays a single Group model.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
     public function actionView($id)
     {
-        $query = Goal::find()->andWhere(["user_id" => $id]);
-        $result = Goal::find()->joinWith('split')->with('split')->andWhere(["user_id" => $id])->all();
+        $query = User::find()->andWhere(["group_id" => $id]);
+
         $dataProvider = new ActiveDataProvider([
             'query' => $query
         ]);
 
         return $this->render('view', [
+            'model' => $this->findModel($id),
             'dataProvider' => $dataProvider,
-            'model' => $this->findModel($id),
-            'result' => $result,
+
         ]);
     }
 
     /**
-     * Displays Account Information for a swimmer.
-     * @param integer $id
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    public function actionAccount($id)
-    {
-        return $this->render('account', [
-            'model' => $this->findModel($id),
-        ]);
-    }
-
-       /**
-     * Deletes a Swimmer from a group.
-     */
-    public function actionRemove_from_group($id)
-    {
-        $model = $this->findModel($id);
-        $model->group_id = null;
-
-        if($model->save()){
-            return $this->redirect(['index']);
-        }
-    }
-
-    /**
-     * Creates a new Swimmer model.
+     * Creates a new Group model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new Swimmer();
-        $model->role = 'swimmer';
+        $model = new Group();
         $model->coach_id = Yii::$app->user->id;
+
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         }
@@ -126,7 +121,7 @@ class SwimmerController extends Controller
     }
 
     /**
-     * Updates an existing Swimmer model.
+     * Updates an existing Group model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -146,7 +141,7 @@ class SwimmerController extends Controller
     }
 
     /**
-     * Deletes an existing Swimmer model.
+     * Deletes an existing Group model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -160,15 +155,15 @@ class SwimmerController extends Controller
     }
 
     /**
-     * Finds the Swimmer model based on its primary key value.
+     * Finds the Group model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Swimmer the loaded model
+     * @return Group the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Swimmer::findOne($id)) !== null) {
+        if (($model = Group::findOne($id)) !== null) {
             return $model;
         }
 

@@ -1,15 +1,19 @@
 <?php
 
-use app\models\Group;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Swimmer */
 /* @var $form yii\widgets\ActiveForm */
+
+$this->title = 'Sign Up as a Coach';
+$this->params['breadcrumbs'][] = $this->title;
 ?>
 
-<div class="swimmer-form">
+<div class="signup_coach">
+
+    <h1>Sign Up as a Coach</h1>
 
     <?php $form = ActiveForm::begin(); ?>
 
@@ -21,19 +25,10 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'password')->passwordInput(['maxlength' => true]) ?>
 
-    <?php if($model->role != 'swimmer'): ?>
-    <div id = "status_div">
-    <?= $form->field($model, 'status')->dropDownList(["active"=>"active", "inactive"=>"inactive"]) ?>
-    </div>
-
-    <?php endif;?>
-
-    <label id='group'>Group</label>
-    <?= $form->field($model, 'group_id')->dropDownList(Group::getAllGroups()) ?>
-
     <div class="form-group">
         <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?>
     </div>
+
     <?php ActiveForm::end(); ?>
 
 </div>

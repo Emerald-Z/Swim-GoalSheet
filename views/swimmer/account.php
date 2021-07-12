@@ -4,14 +4,14 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\Goal */
+/* @var $model app\models\Swimmer */
 
-$this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Goals'), 'url' => ['index']];
+$this->title =  Yii::t('app', 'Account Information');
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Swimmers'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
-<div class="goal-view">
+<div class="swimmer-account">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
@@ -29,18 +29,16 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'event',
-            'goal',
-            'step_name_1',
-            'step_time_1',
-            'step_name_2',
-            'step_time_2',
-            'step_name_3',
-            'step_time_3',
-            'step_name_4',
-            'step_time_4',
-            'step_name_5',
-            'step_time_5',
+            'first_name',
+            'last_name',
+            'email:email',
+            'password',
+            [
+                'label'=>'Group',
+                'value'=>function($data){
+                    return $data->group->group_name;
+                }
+            ],
         ],
     ]) ?>
 

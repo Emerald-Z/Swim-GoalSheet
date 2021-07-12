@@ -9,6 +9,8 @@ use yii\web\Response;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
+use app\models\{Swimmer, User};
+
 
 class SiteController extends Controller
 {
@@ -64,6 +66,61 @@ class SiteController extends Controller
         return $this->render('index');
     }
 
+    public function actionSignup()
+    {
+        return $this->render('signup');
+    }
+    
+     /**
+     * Sign up as a coach
+     *
+     */
+    public function actionSignup_coach()
+    {
+        $model = new Swimmer();
+        $model->role = 'coach';
+        $model->status = 'active';
+        
+        if ($model->load(Yii::$app->request->post())) {
+            $model->coach_code = substr($model->first_name,0,1).$model->last_name.'-'.substr(md5(time()), 0 , 5); 
+            if($model->save()){
+                return $this->redirect('login');
+            }
+        }
+
+        return $this->render('signup_coach', [
+            'model' => $model,
+        ]);
+    }
+
+    /**
+     * Sign up as a swimmer
+     *
+     */
+    public function actionSignup_swimmer()
+    {
+        $model = new Swimmer();
+        $model->role = 'swimmer';
+        $model->status = 'active';
+        
+        if ($model->load(Yii::$app->request->post())) {
+            $coach = User::findOne(['coach_code' => $model->coach_code]);
+            if($coach){
+                $model->coach_id = $coach->id;
+                if($model->save()){
+                    return $this->redirect('login');
+                }
+            } else {
+                $model->addError('coach_code', 'wrong coach code!');
+            }
+            
+        }
+
+        return $this->render('signup_swimmer', [
+            'model' => $model,
+        ]);
+    }    
+
     /**
      * Login action.
      *
@@ -77,7 +134,11 @@ class SiteController extends Controller
 
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            return $this->goBack();
+            if (Yii::$app->user->identity->role == 'coach') {
+                $this->redirect(['goal/teamgoals']);
+            } else {
+                return $this->goHome();
+            }
         }
 
         $model->password = '';

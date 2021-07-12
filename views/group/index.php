@@ -6,42 +6,32 @@ use yii\grid\GridView;
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('app', 'Swimmers');
+$this->title = Yii::t('app', 'Groups');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="swimmer-index">
+<div class="group-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a(Yii::t('app', 'Create Swimmer'), ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(Yii::t('app', 'Create Group'), ['create'], ['class' => 'btn btn-success']) ?>
     </p>
+
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
+            'group_name',
 
-            'first_name',
-            'last_name',
-            'email:email',
-            'status',
-            //'access_token',
-            [
-                'label'=>'Group',
-                'attribute' => 'group',
-                'value'=>function($data){
-                    return $data->group->group_name;
-                }
-            ],
             [
                 'class' => 'yii\grid\ActionColumn',
                 'template' => '{view} {update} {delete}',
                 'buttons'=>[
 
-                    'whatever' => function ($url, $model, $key) {	
+                    'Goals and Splits' => function ($url, $model, $key) {	
 
-                      return Html::a('<span class="glyphicon glyphicon-plus">whate</span>', ['/swimmer/whatever', 'id' => $model->id], [
+                      return Html::a('<span class="glyphicon glyphicon-plus">Goals and Splits</span>', ['/swimmer/goals_and_splits', 'id' => $model->id], [
 
                         'title' => Yii::t('yii', 'Create'),
 
@@ -55,7 +45,6 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
         ],
     ]); ?>
-
 
 
 </div>

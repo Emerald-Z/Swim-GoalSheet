@@ -22,13 +22,6 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'columns' => [
-           
-            [
-                'label'=>'Name',
-                'value'=>function($data){
-                    return $data->user->first_name;
-                }
-            ],
             'event',
             'goal',
             'step_name_1',

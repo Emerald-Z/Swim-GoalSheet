@@ -8,7 +8,7 @@ use Yii;
  * This is the model class for table "user".
  *
  * @property int $id
- * @property string|null $user_type
+ * @property string|null $role
  * @property string|null $first_name
  * @property string|null $last_name
  * @property string|null $email
@@ -16,8 +16,10 @@ use Yii;
  * @property string|null $status
  * @property string|null $access_token
  * @property int|null $group_id
+ * @property string|null $coach_code
+ * @property int|null $coach_id
  */
-class Swimmer extends \yii\db\ActiveRecord
+class Coach extends \yii\db\ActiveRecord
 {
     /**
      * {@inheritdoc}
@@ -33,7 +35,7 @@ class Swimmer extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['group_id','coach_id'], 'integer'],
+            [['group_id', 'coach_id'], 'integer'],
             [['role', 'first_name', 'last_name', 'email', 'password', 'status', 'access_token', 'coach_code'], 'string', 'max' => 255],
         ];
     }
@@ -45,7 +47,7 @@ class Swimmer extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'role' => 'User Type',
+            'role' => 'Role',
             'first_name' => 'First Name',
             'last_name' => 'Last Name',
             'email' => 'Email',
@@ -53,14 +55,8 @@ class Swimmer extends \yii\db\ActiveRecord
             'status' => 'Status',
             'access_token' => 'Access Token',
             'group_id' => 'Group ID',
+            'coach_code' => 'Coach Code',
             'coach_id' => 'Coach ID',
         ];
     }
-
-    public function getGroup(){
-        return $this->hasOne(Group::class, ['id'=>'group_id']);
-    }
-
-
-
 }

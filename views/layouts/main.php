@@ -38,15 +38,18 @@ AppAsset::register($this);
                 ],
 
     ]);
-     
+    $items [] = ['label' => 'Login', 'url' => ['/site/login']];
     if (Yii::$app->user->isGuest) {
-        $items [] = ['label' => 'Login', 'url' => ['/site/login']];
+        $items  = [
+            ['label' => 'Login', 'url' => ['/site/login']],
+            ['label' => 'Sign Up', 'url' => ['/site/signup']],
+        ];
     } else {
         if(Yii::$app->user->identity->role == 'swimmer'){
             $items = [
                 ['label' => 'Goal', 'url' => ['/goal']],
-                ['label' => 'Splits & Percents', 'url' => ['s/goal/split']],
-                ['label' => 'Contact', 'url' => ['/site/contact']],
+                ['label' => 'Splits & Percents', 'url' => ['/goal/split']],
+                ['label' => 'Account', 'url' => ['/swimmer/account', 'id' => Yii::$app->user->id]],
                 '<li>'
                     . Html::beginForm(['/site/logout'], 'post')
                     . Html::submitButton(
@@ -60,8 +63,10 @@ AppAsset::register($this);
         else{
             $items = [
                 ['label' => 'Swimmers', 'url' => ['/swimmer']],
+                ['label' => 'Groups', 'url' => ['/group']],
                 ['label' => 'Team Goals', 'url' => ['/goal/teamgoals']],
-                ['label' => 'Contact', 'url' => ['/site/contact']],
+                ['label' => 'Account', 'url' => ['/coach/account', 'id' => Yii::$app->user->id]],
+               // ['label' => 'Contact', 'url' => ['/site/contact']],
                 '<li>'
                     . Html::beginForm(['/site/logout'], 'post')
                     . Html::submitButton(

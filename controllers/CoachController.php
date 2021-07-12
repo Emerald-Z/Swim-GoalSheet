@@ -3,17 +3,16 @@
 namespace app\controllers;
 
 use Yii;
-use app\models\Swimmer;
-use app\models\Goal;
+use app\models\Coach;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * UserController implements the CRUD actions for Swimmer model.
+ * CoachController implements the CRUD actions for Coach model.
  */
-class SwimmerController extends Controller
+class CoachController extends Controller
 {
     /**
      * {@inheritdoc}
@@ -31,57 +30,22 @@ class SwimmerController extends Controller
     }
 
     /**
-     * Lists all Swimmer models.
+     * Lists all Coach models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $query = Swimmer::find()->joinWith('group')->with('group')->andWhere(["role" => 'swimmer']);
-
         $dataProvider = new ActiveDataProvider([
-            'query' => $query,
-            'sort' => [
-                'attributes' => [
-                    'first_name',
-                    'last_name',
-                    'group' => [
-                        'asc' => ['group.group_name' => SORT_ASC],
-                        'desc' => ['group.group_name' => SORT_DESC]
-                    ]
-                ]
-                
-            ]
+            'query' => Coach::find(),
         ]);
 
         return $this->render('index', [
             'dataProvider' => $dataProvider,
         ]);
-
     }
 
     /**
-     * Displays a single Swimmer model.
-     * @param integer $id
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    public function actionView($id)
-    {
-        $query = Goal::find()->andWhere(["user_id" => $id]);
-        $result = Goal::find()->joinWith('split')->with('split')->andWhere(["user_id" => $id])->all();
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query
-        ]);
-
-        return $this->render('view', [
-            'dataProvider' => $dataProvider,
-            'model' => $this->findModel($id),
-            'result' => $result,
-        ]);
-    }
-
-    /**
-     * Displays Account Information for a swimmer.
+     * Displays a single Coach model.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
@@ -93,29 +57,15 @@ class SwimmerController extends Controller
         ]);
     }
 
-       /**
-     * Deletes a Swimmer from a group.
-     */
-    public function actionRemove_from_group($id)
-    {
-        $model = $this->findModel($id);
-        $model->group_id = null;
-
-        if($model->save()){
-            return $this->redirect(['index']);
-        }
-    }
-
     /**
-     * Creates a new Swimmer model.
+     * Creates a new Coach model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new Swimmer();
-        $model->role = 'swimmer';
-        $model->coach_id = Yii::$app->user->id;
+        $model = new Coach();
+
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         }
@@ -126,7 +76,7 @@ class SwimmerController extends Controller
     }
 
     /**
-     * Updates an existing Swimmer model.
+     * Updates an existing Coach model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -146,7 +96,7 @@ class SwimmerController extends Controller
     }
 
     /**
-     * Deletes an existing Swimmer model.
+     * Deletes an existing Coach model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -160,15 +110,15 @@ class SwimmerController extends Controller
     }
 
     /**
-     * Finds the Swimmer model based on its primary key value.
+     * Finds the Coach model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Swimmer the loaded model
+     * @return Coach the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Swimmer::findOne($id)) !== null) {
+        if (($model = Coach::findOne($id)) !== null) {
             return $model;
         }
 
