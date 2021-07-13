@@ -70,10 +70,18 @@ class GoalController extends Controller
     {
         
          if(Yii::$app->request->post()){
-            $name=Yii::$app->request->post('name');
-            $query = Goal::find()->joinWith(['user'])->andWhere(['=', 'coach_id', Yii::$app->user->id])->andWhere(['like', 'user.first_name', $name]);
-        } else{
-            $query = Goal::find()->joinWith(['user'])->andWhere('coach_id'== Yii::$app->user->id);
+             if(Yii::$app->request->post('name')){
+                $name=Yii::$app->request->post('name');
+                $query = Goal::find()->joinWith(['user'])->andWhere(['=', 'coach_id', Yii::$app->user->id])->andWhere(['like', 'user.first_name', $name]);
+             } else if(Yii::$app->request->post('event')){
+                $event=Yii::$app->request->post('event');
+                $query = Goal::find()->joinWith(['user'])->andWhere(['=', 'coach_id', Yii::$app->user->id])->andWhere(['like', 'goal.event', $event]);
+             }else if(Yii::$app->request->post('group')){
+                $group=Yii::$app->request->post('group');
+                $query = Goal::find()->joinWith(['user', 'user.group'])->andWhere(['=', 'user.coach_id', Yii::$app->user->id])->andWhere(['like', 'group.group_name', $group]);
+             }
+            } else{
+            $query = Goal::find()->joinWith(['user'])->andWhere(['=', 'coach_id', Yii::$app->user->id]);
         }
 
         $dataProvider = new ActiveDataProvider([
@@ -83,10 +91,14 @@ class GoalController extends Controller
             ],
             'sort' => [
                 'attributes' => [
-                    'goal',
+                    'event',
                     'user_name' => [
                         'asc' => ['user.first_name' => SORT_ASC],
                         'desc' => ['user.first_name' => SORT_DESC]
+                    ],
+                    'group' => [
+                        'asc' => ['group.group_name' => SORT_ASC],
+                        'desc' => ['group.group_name' => SORT_DESC]
                     ]
                 ]
                 
@@ -96,6 +108,8 @@ class GoalController extends Controller
         return $this->render('teamgoals', [
             'dataProvider' => $dataProvider,
             'name' => $name?? '',
+            'event' => $event?? '',
+            'group' => $group?? '',
         ]);
     }
 

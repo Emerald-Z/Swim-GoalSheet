@@ -1,7 +1,7 @@
 $( document ).ready(function(){
     $('#goal-event').bind('change', function(e){
         let event = $(this).val();
-        if (["50 FREE", "100 FREE", "100 FLY", "100 BREAST"].includes(event)){
+        if (["50 FREE", "100 FREE", "100 FLY", "100 BREAST", "100 BACK"].includes(event)){
             $('#label_step_name_1').text('Start 15m');
             $('#label_step_name_2').text('Start 25yd');
             $('#label_step_name_3').text('Pace 100yd');

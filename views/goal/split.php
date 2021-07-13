@@ -6,6 +6,8 @@ $this->title = 'Splits';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
+<h1>Splits and Percents</h1>
+
 </head>
 <body>
     <select id="PercentSelect">
@@ -144,67 +146,65 @@ $this->params['breadcrumbs'][] = $this->title;
 <?php foreach($result as $row): ?>
 
 
-    <div class="row SplitsTable">
-        <div class="col">
-            <?= $row->event ?>
-        </div>
-        <div class="col">
-            <?= $row->goal ?>
-        </div>
-        <div class="col">
-            <?= $row->split->split_1 * $row->goal?>
-            <?php echo "<br>"?>
-            <?= $row->split->split_2 * $row->goal?>
-            <?php echo "<br>"?>
-            <?= $row->split->split_3 * $row->goal?>
-            <?php echo "<br>"?>
-            <?= $row->split->split_4 * $row->goal?>
-            <?php echo "<br>"?>
-            <?= $row->split->split_5 * $row->goal?>
-            <?php echo "<br>"?>
-        </div>
-        <div class="col">
-            <?= $row->split->split_1 * $row->goal * 1.15?>
-            <?php echo "<br>"?>
-            <?= $row->split->split_2 * $row->goal * 1.15?>
-            <?php echo "<br>"?>
-            <?= $row->split->split_3 * $row->goal * 1.15?>
-            <?php echo "<br>"?>
-            <?= $row->split->split_4 * $row->goal * 1.15?>
-            <?php echo "<br>"?>
-            <?= $row->split->split_5 * $row->goal * 1.15?>
-            <?php echo "<br>"?>
-        </div>
-        <div class="col">
-            <?= $row->split->split_1 * $row->goal * 1.1?>
-            <?php echo "<br>"?>
-            <?= $row->split->split_2 * $row->goal * 1.1?>
-            <?php echo "<br>"?>
-            <?= $row->split->split_3 * $row->goal * 1.1?>
-            <?php echo "<br>"?>
-            <?= $row->split->split_4 * $row->goal * 1.1?>
-            <?php echo "<br>"?>
-            <?= $row->split->split_5 * $row->goal* 1.1?>
-            <?php echo "<br>"?>
-        </div>
-        <div class="col">
-            <?= $row->split->split_1 * $row->goal * 1.05?>
-            <?php echo "<br>"?>
-            <?= $row->split->split_2 * $row->goal * 1.05?>
-            <?php echo "<br>"?>
-            <?= $row->split->split_3 * $row->goal * 1.05?>
-            <?php echo "<br>"?>
-            <?= $row->split->split_4 * $row->goal * 1.05?>
-            <?php echo "<br>"?>
-            <?= $row->split->split_5 * $row->goal * 1.05?>
-            <?php echo "<br>"?>
-        </div>
+<div class="row SplitsTable">
+    <div class="col">
+        <?= $row->event ?>
     </div>
+    <div class="col">
+        <?= $row->goal ?>
+    </div>
+    <div class="col">
+        <?= $row->split->split_1 * $row->goal?>
+        <?php echo "<br>"?>
+        <?= $row->split->split_2 * $row->goal?>
+        <?php echo "<br>"?>
+        <?= $row->split->split_3 ? ($row->split->split_3 * $row->goal) : ''?>
+        <?php echo "<br>"?>
+        <?= $row->split->split_4 ? ($row->split->split_4 * $row->goal) : ''?>
+        <?php echo "<br>"?>
+        <?= $row->split->split_5 ? ($row->split->split_5 * $row->goal) : '' ?>
+        <?php echo "<br>"?>
+    </div>
+    <div class="col">
+        <?= $row->split->split_1 * $row->goal * 1.15?>
+        <?php echo "<br>"?>
+        <?= $row->split->split_2 * $row->goal * 1.15?>
+        <?php echo "<br>"?>
+        <?= $row->split->split_3 ? ($row->split->split_3 * $row->goal * 1.15) : ''?>
+        <?php echo "<br>"?>
+        <?= $row->split->split_4 ? ($row->split->split_4 * $row->goal * 1.15) : ''?>
+        <?php echo "<br>"?>
+        <?= $row->split->split_5 ? ($row->split->split_5 * $row->goal * 1.15) : ''?>
+        <?php echo "<br>"?>
+    </div>
+    <div class="col">
+        <?= $row->split->split_1 * $row->goal * 1.1?>
+        <?php echo "<br>"?>
+        <?= $row->split->split_2 * $row->goal * 1.1?>
+        <?php echo "<br>"?>
+        <?= $row->split->split_3 ? ($row->split->split_3 * $row->goal * 1.1) : ''?>
+        <?php echo "<br>"?>
+        <?= $row->split->split_4 ? ($row->split->split_4 * $row->goal * 1.1) : ''?>
+        <?php echo "<br>"?>
+        <?= $row->split->split_5 ? ($row->split->split_5 * $row->goal * 1.1) : ''?>
+        <?php echo "<br>"?>
+    </div>
+    <div class="col">
+        <?= $row->split->split_1 * $row->goal * 1.05?>
+        <?php echo "<br>"?>
+        <?= $row->split->split_2 * $row->goal * 1.05?>
+        <?php echo "<br>"?>
+        <?= $row->split->split_3 ? ($row->split->split_3 * $row->goal * 1.05) : ''?>
+        <?php echo "<br>"?>
+        <?= $row->split->split_4 ? ($row->split->split_4 * $row->goal * 1.05) : ''?>
+        <?php echo "<br>"?>
+        <?= $row->split->split_5 ? ($row->split->split_5 * $row->goal * 1.05) : ''?>
+        <?php echo "<br>"?>
+    </div>
+</div>
 
 
 
 <?php endforeach;?>
-
-
 
 

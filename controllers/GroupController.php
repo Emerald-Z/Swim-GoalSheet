@@ -56,7 +56,7 @@ class GroupController extends Controller
     public function actionGoals_and_splits($id)
     {
         $query = Goal::find()->joinWith('user')->andWhere('group_id' == $id);
-        $result = Goal::find()->joinWith('split')->with('split')->all();
+        $result = Goal::find()->joinWith(['split','user'])->with('split')->all();
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -76,6 +76,7 @@ class GroupController extends Controller
         return $this->render('goals_and_splits', [
             'dataProvider' => $dataProvider,
             'result' => $result,
+            'model' => $this->findModel($id),
         ]);
 
     }
@@ -137,6 +138,30 @@ class GroupController extends Controller
 
         return $this->render('update', [
             'model' => $model,
+        ]);
+    }
+
+       /**
+     * Adds a swimmer to a group.
+     * If update is successful, the browser will be redirected to the 'view' page.
+     */
+    public function actionAdd_swimmer_to_group($id)
+    {
+        $swimmers_in_group = Group::getAllSwimmersinGroup($id);
+        $swimmers_under_coach = Group::getAllSwimmers();
+        $user_ids = Yii::$app->db->createCommand('select id from user where group_id <> :group_id', [':group_id' => $id])->queryColumn();
+        if(Yii::$app->request->post()){
+            $ids = Yii::$app->request->post('user_id');
+            Yii::$app->db->createCommand('update user set group_id = :group_id where id in('.join(',', array_values($ids)).')', [':group_id' => $id])->execute();
+            $this->redirect(['index']);
+        }
+        $new_events = array_diff($swimmers_under_coach, $swimmers_in_group);
+        $swimmer = array_combine($new_events, $new_events);
+
+        return $this->render('add_swimmer_to_group', [
+            'model' => $user_ids,
+            'models' => $this->findModel($id),
+            'swimmer' => $swimmer,
         ]);
     }
 

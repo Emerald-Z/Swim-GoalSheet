@@ -25,11 +25,9 @@ use yii\widgets\ActiveForm;
     <div id = "status_div">
     <?= $form->field($model, 'status')->dropDownList(["active"=>"active", "inactive"=>"inactive"]) ?>
     </div>
-
     <?php endif;?>
 
-    <label id='group'>Group</label>
-    <?= $form->field($model, 'group_id')->dropDownList(Group::getAllGroups()) ?>
+    <?= $form->field($model, 'group_id')->dropDownList(Group::getAllGroups())->label('Group') ?>
 
     <div class="form-group">
         <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?>

@@ -18,7 +18,18 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="search-form">
         <?php $form = ActiveForm::begin(); ?>
             <div class="row">
+                <h4>Name  </h4>
                 <input type = 'text' name = 'name' value='<?=$name?>'>
+            </div>
+            <div class="row">
+                <h4>Event </h4>
+                <input type = 'text' name = 'event' value='<?=$event?>'>
+            </div>
+            <div class="row">
+                <h4>Group </h4>
+                <input type = 'text' name = 'group' value='<?=$group?>'>
+            </div>
+            <div class="row">
                 <input type='submit' >
             </div>
         <?php ActiveForm::end(); ?>
@@ -45,12 +56,18 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             [
                 'label'=>'Group',
+                'attribute'=>'group',
                 'value'=>function($data){
                     return $data->user->group->group_name;
                 }
             ],
             'event',
-            'goal',
+            [
+                'attribute'=>'goal',
+                'value'=>function($data){
+                    return intval($data->goal / 60).":".fmod($data->goal, 60);
+                }
+            ],
             'step_name_1',
             'step_time_1',
             'step_name_2',

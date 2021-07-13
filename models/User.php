@@ -79,4 +79,8 @@ class User extends ActiveRecord implements \yii\web\IdentityInterface
         return $this->hasOne(Group::class, ['id'=>'group_id']);
     }
 
+    public function getGoal(){
+        return $this->hasOne(Goal::class, ['user_id'=>'id']);
+    }
+
 }

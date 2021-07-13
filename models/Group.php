@@ -27,7 +27,7 @@ class Group extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['coach_id'], 'integer'],
+            [['id', 'coach_id'], 'integer'],
             [['group_name'], 'string', 'max' => 255],
         ];
     }
@@ -53,6 +53,24 @@ class Group extends \yii\db\ActiveRecord
         $result = [];
         foreach ($groups as $group) {
             $result [$group->id] = $group->group_name;
+        }
+        return $result;
+    }
+
+    public static function getAllSwimmersinGroup($id){
+        $swimmers = Swimmer::find()->andWhere(['coach_id'=>Yii::$app->user->id])->andWhere(['group_id'=>$id])->all();
+        $result = [];
+        foreach ($swimmers as $swimmer) {
+            $result [$swimmer->id] = $swimmer->first_name;
+        }
+        return $result;
+    }
+
+    public static function getAllSwimmers(){
+        $swimmers = Swimmer::find()->andWhere(['coach_id'=>Yii::$app->user->id])->all();
+        $result = [];
+        foreach ($swimmers as $swimmer) {
+            $result [$swimmer->id] = $swimmer->first_name;
         }
         return $result;
     }

@@ -7,7 +7,6 @@ use yii\widgets\DetailView;
 /* @var $model app\models\Coach */
 
 $this->title =  Yii::t('app', 'Account Information');
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Home'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>

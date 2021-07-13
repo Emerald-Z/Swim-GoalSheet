@@ -23,7 +23,12 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         'columns' => [
             'event',
-            'goal',
+            [
+                'attribute'=>'goal',
+                'value'=>function($data){
+                    return intval($data->goal / 60).":".fmod($data->goal, 60);
+                }
+            ],
             'step_name_1',
             'step_time_1',
             'step_name_2',

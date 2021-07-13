@@ -107,6 +107,20 @@ class SwimmerController extends Controller
     }
 
     /**
+     * Function to add a Swimmer to a group.
+     */
+    public function actionAdd_to_group($id)
+    {
+        $model = $this->findModel($id);
+        $model->group_id = null;
+
+        if($model->save()){
+            return $this->redirect(['index']);
+        }
+    }
+
+
+    /**
      * Creates a new Swimmer model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed

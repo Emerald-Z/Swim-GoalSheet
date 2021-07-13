@@ -7,7 +7,7 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model app\models\Swimmer */
 
-$this->title = $model->id;
+$this->title = $model->first_name." ".$model->last_name;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Swimmers'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
@@ -78,11 +78,11 @@ $this->params['breadcrumbs'][] = $this->title;
             <?php echo "<br>"?>
             <?= $row->split->split_2 * $row->goal?>
             <?php echo "<br>"?>
-            <?= $row->split->split_3 * $row->goal?>
+            <?= $row->split->split_3 ? ($row->split->split_3 * $row->goal) : ''?>
             <?php echo "<br>"?>
-            <?= $row->split->split_4 * $row->goal?>
+            <?= $row->split->split_4 ? ($row->split->split_4 * $row->goal) : ''?>
             <?php echo "<br>"?>
-            <?= $row->split->split_5 * $row->goal?>
+            <?= $row->split->split_5 ? ($row->split->split_5 * $row->goal) : '' ?>
             <?php echo "<br>"?>
         </div>
         <div class="col">
@@ -90,11 +90,11 @@ $this->params['breadcrumbs'][] = $this->title;
             <?php echo "<br>"?>
             <?= $row->split->split_2 * $row->goal * 1.15?>
             <?php echo "<br>"?>
-            <?= $row->split->split_3 * $row->goal * 1.15?>
+            <?= $row->split->split_3 ? ($row->split->split_3 * $row->goal * 1.15) : ''?>
             <?php echo "<br>"?>
-            <?= $row->split->split_4 * $row->goal * 1.15?>
+            <?= $row->split->split_4 ? ($row->split->split_4 * $row->goal * 1.15) : ''?>
             <?php echo "<br>"?>
-            <?= $row->split->split_5 * $row->goal * 1.15?>
+            <?= $row->split->split_5 ? ($row->split->split_5 * $row->goal * 1.15) : ''?>
             <?php echo "<br>"?>
         </div>
         <div class="col">
@@ -102,11 +102,11 @@ $this->params['breadcrumbs'][] = $this->title;
             <?php echo "<br>"?>
             <?= $row->split->split_2 * $row->goal * 1.1?>
             <?php echo "<br>"?>
-            <?= $row->split->split_3 * $row->goal * 1.1?>
+            <?= $row->split->split_3 ? ($row->split->split_3 * $row->goal * 1.1) : ''?>
             <?php echo "<br>"?>
-            <?= $row->split->split_4 * $row->goal * 1.1?>
+            <?= $row->split->split_4 ? ($row->split->split_4 * $row->goal * 1.1) : ''?>
             <?php echo "<br>"?>
-            <?= $row->split->split_5 * $row->goal* 1.1?>
+            <?= $row->split->split_5 ? ($row->split->split_5 * $row->goal * 1.1) : ''?>
             <?php echo "<br>"?>
         </div>
         <div class="col">
@@ -114,11 +114,11 @@ $this->params['breadcrumbs'][] = $this->title;
             <?php echo "<br>"?>
             <?= $row->split->split_2 * $row->goal * 1.05?>
             <?php echo "<br>"?>
-            <?= $row->split->split_3 * $row->goal * 1.05?>
+            <?= $row->split->split_3 ? ($row->split->split_3 * $row->goal * 1.05) : ''?>
             <?php echo "<br>"?>
-            <?= $row->split->split_4 * $row->goal * 1.05?>
+            <?= $row->split->split_4 ? ($row->split->split_4 * $row->goal * 1.05) : ''?>
             <?php echo "<br>"?>
-            <?= $row->split->split_5 * $row->goal * 1.05?>
+            <?= $row->split->split_5 ? ($row->split->split_5 * $row->goal * 1.05) : ''?>
             <?php echo "<br>"?>
         </div>
     </div>

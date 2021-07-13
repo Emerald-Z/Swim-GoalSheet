@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $this yii\web\View */
 /* @var $model app\models\Group */
 
-$this->title = $model->id;
+$this->title = $model->group_name;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Groups'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
@@ -35,6 +35,12 @@ $this->params['breadcrumbs'][] = $this->title;
     ]) ?>
 
 <h1>Swimmers</h1>
+<div class="add_swimmer_to_group">
+<p>
+    <?= Html::a('Add Swimmer to Group', ['/group/add_swimmer_to_group', 'id' => $model->id], ['class'=>'btn btn-primary']) ?>
+    </p>
+
+</div>
 
 <?= GridView::widget([
         'dataProvider' => $dataProvider,
