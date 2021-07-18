@@ -38,7 +38,7 @@ $( document ).ready(function(){
 
     })
 
-    $('#PercentSelect').bind('change', function(e){
+ /*   $('#PercentSelect').bind('change', function(e){
         let percent = $(this).val();
         if(percent == "85%"){
             $('.Splits85').show();
@@ -63,4 +63,5 @@ $( document ).ready(function(){
         }
 
     })
+    */
 });

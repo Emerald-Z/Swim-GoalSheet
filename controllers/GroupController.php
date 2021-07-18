@@ -44,6 +44,10 @@ class GroupController extends Controller
             'query' => $query
         ]);
 
+        if(Yii::$app->user->identity->role != 'coach'){
+            throw new NotFoundHttpException('The requested page does not exist.');
+        }
+
         return $this->render('index', [
             'dataProvider' => $dataProvider,
         ]);
@@ -73,6 +77,10 @@ class GroupController extends Controller
             ]
         ]);
 
+        if(Yii::$app->user->identity->role != 'coach'){
+            throw new NotFoundHttpException('The requested page does not exist.');
+        }
+
         return $this->render('goals_and_splits', [
             'dataProvider' => $dataProvider,
             'result' => $result,
@@ -94,6 +102,10 @@ class GroupController extends Controller
         $dataProvider = new ActiveDataProvider([
             'query' => $query
         ]);
+
+        if(Yii::$app->user->identity->role != 'coach'){
+            throw new NotFoundHttpException('The requested page does not exist.');
+        }
 
         return $this->render('view', [
             'model' => $this->findModel($id),
@@ -174,6 +186,11 @@ class GroupController extends Controller
      */
     public function actionDelete($id)
     {
+
+        if(Yii::$app->user->identity->role != 'coach'){
+            throw new NotFoundHttpException('The requested page does not exist.');
+        }
+        
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);

@@ -15,6 +15,7 @@ use yii\filters\VerbFilter;
  */
 class SwimmerController extends Controller
 {
+
     /**
      * {@inheritdoc}
      */
@@ -53,6 +54,10 @@ class SwimmerController extends Controller
             ]
         ]);
 
+        if(Yii::$app->user->identity->role != 'coach'){
+            throw new NotFoundHttpException('The requested page does not exist.');
+        }
+
         return $this->render('index', [
             'dataProvider' => $dataProvider,
         ]);
@@ -88,6 +93,9 @@ class SwimmerController extends Controller
      */
     public function actionAccount($id)
     {
+        if ($id != Yii::$app->user->id){
+            throw new NotFoundHttpException('The requested page does not exist.');
+        }
         return $this->render('account', [
             'model' => $this->findModel($id),
         ]);
@@ -154,6 +162,10 @@ class SwimmerController extends Controller
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
+        if ($id != Yii::$app->user->id && Yii::$app->user->id != $model->coach_id){
+            throw new NotFoundHttpException('The requested page does not exist.');
+        }
+
         return $this->render('update', [
             'model' => $model,
         ]);
@@ -168,6 +180,11 @@ class SwimmerController extends Controller
      */
     public function actionDelete($id)
     {
+        $model = $this->findModel($id);
+        if ($id != Yii::$app->user->id && Yii::$app->user->id != $model->coach_id){
+            throw new NotFoundHttpException('The requested page does not exist.');
+        }
+
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);

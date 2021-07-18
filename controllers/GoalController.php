@@ -54,7 +54,13 @@ class GoalController extends Controller
         $query = Goal::find()->andWhere(["user_id" => Yii::$app->user->id]);
 
         $dataProvider = new ActiveDataProvider([
-            'query' => $query
+            'query' => $query,
+            'sort' => [
+                'attributes' => [
+                    'event'
+                ]
+                
+            ]
         ]);
 
         return $this->render('index', [
@@ -134,6 +140,12 @@ class GoalController extends Controller
      */
     public function actionView($id)
     {
+        $model = $this->findModel($id);
+
+        if(Yii::$app->user->id != $model->user_id){
+            throw new NotFoundHttpException('The requested page does not exist.');
+        }
+
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
@@ -207,6 +219,10 @@ class GoalController extends Controller
             return $this->redirect(['view', 'id' => $goal->id]);
         }
 
+        if(Yii::$app->user->id != $goal->user_id){
+            throw new NotFoundHttpException('The requested page does not exist.');
+        }
+
         return $this->render('update', [
             'goal' => $goal,
         ]);
@@ -221,7 +237,13 @@ class GoalController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        $model = $this->findModel($id);
+
+        if(Yii::$app->user->id != $model->user_id){
+            throw new NotFoundHttpException('The requested page does not exist.');
+        }
+
+        $model->delete();
 
         return $this->redirect(['index']);
     }
