@@ -6,6 +6,8 @@ use yii\db\ActiveRecord;
 
 class User extends ActiveRecord implements \yii\web\IdentityInterface
 {
+
+    public $authKey;
     public static function tableName()
     {
         return 'user';
