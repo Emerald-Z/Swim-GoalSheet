@@ -153,7 +153,7 @@ class GroupController extends Controller
         ]);
     }
 
-       /**
+      /**
      * Adds a swimmer to a group.
      * If update is successful, the browser will be redirected to the 'view' page.
      */
@@ -167,15 +167,16 @@ class GroupController extends Controller
             Yii::$app->db->createCommand('update user set group_id = :group_id where id in('.join(',', array_values($ids)).')', [':group_id' => $id])->execute();
             $this->redirect(['index']);
         }
-        $new_events = array_diff($swimmers_under_coach, $swimmers_in_group);
-        $swimmer = array_combine($new_events, $new_events);
-
+        $swimmer = array_diff_assoc($swimmers_under_coach, $swimmers_in_group);
+        
         return $this->render('add_swimmer_to_group', [
             'model' => $user_ids,
             'models' => $this->findModel($id),
             'swimmer' => $swimmer,
         ]);
     }
+
+
 
     /**
      * Deletes an existing Group model.

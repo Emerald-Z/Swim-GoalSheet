@@ -31,10 +31,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'label'=>'Group',
                 'attribute' => 'group',
                 'value'=>function($data){
-                    if ($data->group->group_name == null){
-                        return "";
-                    }
-                    return $data->group->group_name;
+                    return $data->group->group_name ?? "";
                 }
             ],
             [

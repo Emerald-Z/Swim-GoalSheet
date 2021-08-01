@@ -36,7 +36,7 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'label'=>'Group',
                 'value'=>function($data){
-                    return $data->group->group_name;
+                    return $data->group->group_name ?? "";
                 }
             ],
         ],
