@@ -16,6 +16,8 @@ $this->params['breadcrumbs'][] = $this->title;
 
 <h1><?= Html::encode($this->title) ?></h1>
 
+<?php echo "input total goal time in only seconds" ?>
+
 <?= $this->render('_form', [
     'model' => $goal,
     'events' => $events
