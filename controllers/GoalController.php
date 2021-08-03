@@ -162,8 +162,9 @@ class GoalController extends Controller
         $existing_events = $goal->getGoalsByUserId(Yii::$app->user->id);
         if ($goal->load(Yii::$app->request->post())) {
             $type_of_event = $goal -> event;
-            if (strcmp($type_of_event, '50 FREE') == 0 || strcmp($type_of_event, '100 FREE') == 0
-                || strcmp($type_of_event, '100 FLY') || strcmp($type_of_event, '100 BREAST')){
+            if ($type_of_event == '50 FREE'|| $type_of_event =='100 FREE'
+                || $type_of_event == '100 FLY' || $type_of_event == '100 BREAST'){
+                    print_r("die"); die();
                 $goal -> step_name_1 = 'Start 15m';
                 $goal -> step_name_2 = 'Start 25yd';
                 $goal -> step_name_3 = 'Pace 100yd';
@@ -177,11 +178,12 @@ class GoalController extends Controller
                 }
 
             }
-            else if (strcmp($type_of_event, '200 FREE') == 0 || strcmp($type_of_event, '500 FREE') == 0 || 
-                strcmp($type_of_event, '1000 FREE') == 0 || strcmp($type_of_event, '1650 FREE') == 0 ||
-                strcmp($type_of_event, '200 FLY') == 0 || strcmp($type_of_event, '200 BACK') == 0 ||
-                strcmp($type_of_event, '200 BREAST') == 0
+            else if ($type_of_event == '200 FREE' || $type_of_event == '500 FREE'|| 
+                $type_of_event == '1000 FREE' || $type_of_event == '1650 FREE' ||
+                $type_of_event == '200 FLY' || $type_of_event == '200 BACK' ||
+                $type_of_event == '200 BREAST'
             ){
+              
                 $goal -> step_name_1 = 'Pace 50 yd';
                 $goal -> step_name_2 = 'Pace 75 yd';
                 $goal -> step_name_3 = 'Pace 100yd';
