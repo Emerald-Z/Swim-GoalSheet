@@ -37,7 +37,7 @@ class SwimmerController extends Controller
      */
     public function actionIndex()
     {
-        $query = Swimmer::find()->joinWith('group')->with('group')->andWhere(["role" => 'swimmer']);
+        $query = Swimmer::find()->andWhere(["coach_id" => Yii::$app->user->identity->id]);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
