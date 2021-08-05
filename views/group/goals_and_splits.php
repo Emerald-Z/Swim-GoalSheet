@@ -33,7 +33,9 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute'=>'goal',
                 'value'=>function($data){
-                    return intval($data->goal / 60).":".fmod($data->goal, 60);
+                    $index = strpos((string)$data->goal, '.');
+                    $fraction = substr((string)$data->goal, $index);
+                    return gmdate("i:s", $data->goal).$fraction;
                 }
             ],
             'step_name_1',
