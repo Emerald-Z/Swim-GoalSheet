@@ -6,10 +6,10 @@ use yii\helpers\Html;
 /* @var $model app\models\Goal */
 
 $this->title = Yii::t('app', 'Update Goal: {name}', [
-    'name' => $model->id,
+    'name' => $goal->id,
 ]);
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Goals'), 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
+$this->params['breadcrumbs'][] = ['label' => $goal->id, 'url' => ['view', 'id' => $goal->id]];
 $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
 ?>
 <div class="goal-update">
