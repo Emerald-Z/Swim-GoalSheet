@@ -86,9 +86,21 @@ AppAsset::register($this);
     ?>
 
     <div class="container">
-        <?= Breadcrumbs::widget([
+        <?php if (Yii::$app->user->identity->role == 'swimmer') : ?>
+            <?= Breadcrumbs::widget([
+                'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
+            ]) ?>
+
+        <?php else: ?>
+            <?= Breadcrumbs::widget([
+                 'homeLink' => [ 
+                    'label' => Yii::t('yii', 'Team Goals'),
+                    'url' => ['/goal/teamgoals'],
+               ],
             'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
         ]) ?>
+
+        <?php endif ?>
         <?= Alert::widget() ?>
         <?= $content ?>
     </div>
