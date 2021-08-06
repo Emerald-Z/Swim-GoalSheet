@@ -18,7 +18,7 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
 
     <?= $this->render('_form', [
         'model' => $goal,
-        'events' => $events,
+       // 'events' => $events,
     ]) ?>
 
 </div>
