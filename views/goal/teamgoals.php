@@ -62,7 +62,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'label'=>'Group',
                 'attribute'=>'group',
                 'value'=>function($data){
-                    return $data->user->group->group_name;
+                    return $data->user->group->group_name ?? '';
                 }
             ],
             'event',
