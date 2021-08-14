@@ -85,7 +85,7 @@ AppAsset::register($this);
     ?>
 
     <div class="container">
-        <?php if (Yii::$app->user->identity->role == 'swimmer' ?? "") : ?>
+        <?php if ((Yii::$app->user->identity->role ?? '') == 'swimmer') : ?>
             <?= Breadcrumbs::widget([
                 'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
             ]) ?>
