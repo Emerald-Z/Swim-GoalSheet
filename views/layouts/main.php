@@ -66,7 +66,6 @@ AppAsset::register($this);
                 ['label' => 'Groups', 'url' => ['/group']],
                 ['label' => 'Team Goals', 'url' => ['/goal/teamgoals']],
                 ['label' => 'Account', 'url' => ['/coach/account', 'id' => Yii::$app->user->id]],
-                ['label' => 'Contact', 'url' => ['/site/contact']],
                 '<li>'
                     . Html::beginForm(['/site/logout'], 'post')
                     . Html::submitButton(
