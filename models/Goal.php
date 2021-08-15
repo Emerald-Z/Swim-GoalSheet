@@ -34,7 +34,7 @@ class Goal extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['step_time_1', 'step_time_2', 'step_time_3', 'step_time_4', 'step_time_5'], 'number'],
+           // [['step_time_1', 'step_time_2', 'step_time_3', 'step_time_4', 'step_time_5'], 'number'],
             [['event', 'goal', 'step_name_1', 'step_name_2', 'step_name_3', 'step_name_4', 'step_name_5'], 'string', 'max' => 255],
         ];
     }

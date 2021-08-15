@@ -164,7 +164,6 @@ class GoalController extends Controller
             $type_of_event = $goal -> event;
             if ($type_of_event == '50 FREE'|| $type_of_event =='100 FREE'
                 || $type_of_event == '100 FLY' || $type_of_event == '100 BREAST'){
-                    print_r("die"); die();
                 $goal -> step_name_1 = 'Start 15m';
                 $goal -> step_name_2 = 'Start 25yd';
                 $goal -> step_name_3 = 'Pace 100yd';
