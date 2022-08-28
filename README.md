@@ -26,11 +26,8 @@ DIRECTORY STRUCTURE
       views/              contains view files for the Web application
       web/                contains the entry script and Web resources
 
+NOTES
+-------------------
+This web application is under maintenance. The code is available but the application is not viewable from the Internet. Feel free to take a look at the source code, however. 
 
-*BELOW IS THE README FOR THE YII TEMPLATE FRAMEWORK*
-
-REQUIREMENTS
-------------
-
-The minimum requirement by this project template that your Web server supports PHP 5.6.0.
 
