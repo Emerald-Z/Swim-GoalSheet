@@ -26,6 +26,10 @@ DIRECTORY STRUCTURE
       views/              contains view files for the Web application
       web/                contains the entry script and Web resources
 
+TOOLS
+-------------------
+This application utilizes an aws server to host, Yii and Bootstrap frameworks, as well as the PHP, CSS, HTML, JS, and SQL. 
+
 NOTES
 -------------------
 This web application is under maintenance. The code is available but the application is not viewable from the Internet. Feel free to take a look at the source code, however. 
